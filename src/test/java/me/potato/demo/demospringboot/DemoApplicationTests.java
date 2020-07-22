@@ -13,9 +13,7 @@ import me.potato.demo.demospringboot.sample.Sample;
 import me.potato.demo.demospringboot.sample.SampleRepository;
 import me.potato.demo.demospringboot.sample.client.SampleClient;
 
-@SpringBootTest(
-	webEnvironment = WebEnvironment.DEFINED_PORT
-)
+@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
 class DemoApplicationTests {
 
 	@Autowired
@@ -29,7 +27,7 @@ class DemoApplicationTests {
 	}
 
 	@Test
-	void createSamples(){
+	void createSamples() {
 		sampleRepository.deleteAll();
 		sampleRepository.save(Sample.builder().data("data01").build());
 		sampleRepository.save(Sample.builder().data("data02").build());
@@ -37,24 +35,22 @@ class DemoApplicationTests {
 
 		long count = sampleRepository.count();
 		assertSame(3l, count);
-		
+
 	}
 
 	@Test
-	void createSamplesByNetwork(){
+	void createSamplesByNetwork() {
 		sampleRepository.deleteAll();
-		
+
 		sampleClient.createSample(Sample.builder().data("data01").build());
 		sampleClient.createSample(Sample.builder().data("data02").build());
 		sampleClient.createSample(Sample.builder().data("data03").build());
 
-
 		long count = sampleRepository.count();
 		assertSame(3l, count);
-		
+
 		CollectionModel<Sample> samples = sampleClient.getSamples(Pageable.unpaged());
 		assertSame(3, samples.getContent().size());
-
 
 	}
 
