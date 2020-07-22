@@ -17,4 +17,4 @@ public interface SampleClient {
 
     @PostMapping
     void createSample(@RequestBody Sample sample);
-}
+} 
